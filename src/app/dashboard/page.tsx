@@ -1,27 +1,27 @@
 "use client";
 import { useDashboard } from "./useDashboard";
+import DashboardComponent from "../../components/DashboardComponent/DashboardComponent";
 
 export default function Page() {
   const {
-    productName,
     setProductName,
-    quantity,
     setQuantity,
-    price,
     setPrice,
-    clientName,
     setClientName,
-    clientPhone,
     setClientPhone,
     handleSubmitCustomer,
+    customer,
+    setValueMeter,
   } = useDashboard();
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmitCustomer(e)}>
+      <form
+        onSubmit={(e) => handleSubmitCustomer(e)}
+        className="flex items-center justify-center"
+      >
         <input
           type="text"
-          value={productName}
           placeholder="nom du produit"
           onChange={(e) => setProductName(e.target.value)}
           className="border p-2 rounded-xl mb-6"
@@ -32,9 +32,20 @@ export default function Page() {
           onChange={(e) => setQuantity(parseFloat(e.target.value))}
           className="border p-2 rounded-xl mb-6"
         />
+        <select
+          className="border p-2 rounded-xl mb-6"
+          onChange={(e) => setValueMeter(e.target.value)}
+        >
+          <option value="">-- Choissez un type de quantité --</option>
+          <option value="Litres">Litres</option>
+          <option value="Kilogrammes">Kilogrammes</option>
+          <option value="Grammes">Grammes</option>
+          <option value="Unité">Unité(s)</option>
+          <option value="Litre">Litre(s)</option>
+        </select>
         <input
           type="number"
-          placeholder="Prix"
+          placeholder="Prix en euro"
           onChange={(e) => setPrice(parseFloat(e.target.value))}
           className="border p-2 rounded-xl mb-6"
         />
@@ -45,15 +56,18 @@ export default function Page() {
           className="border p-2 rounded-xl mb-6"
         />
         <input
-          type="text"
+          type="tel"
           placeholder="numéro du client"
           onChange={(e) => setClientPhone(e.target.value)}
           className="border p-2 rounded-xl mb-6"
+          pattern="[0-9]{10}"
+
         />
         <button className="p-2 rounded-xl mb-6 bg-indigo-500" type="submit">
           Valider
         </button>
       </form>
+      <DashboardComponent customerList={customer} />
     </div>
   );
 }

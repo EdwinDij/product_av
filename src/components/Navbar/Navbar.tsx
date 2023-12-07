@@ -1,24 +1,30 @@
 "use client";
 import React from "react";
-import { useAuth } from "../../app/AuthProvider";
+import { useNavbar } from "./useNavbar";
 
 export default function Navbar() {
-  const auth = useAuth();
+  const { greeting, userInfo } = useNavbar();
 
-  const userInfo = auth.user;
-  console.log("auth:", userInfo);
   return (
-    <nav className="border-b-2 py-2 px-4">
+    <nav className="border-b-2 py-4 px-14 shadow-md mb-10">
       <ul className="flex justify-between">
         {userInfo === null ? (
           <>
-            <li>Tarif</li>
-            <li>S{"'"}inscrire</li>
-            <li>Se Connecter</li>
+            <ul>
+              <li>Tarif</li>
+              <li>S{"'"}inscrire</li>
+              <li>Se Connecter</li>
+            </ul>
           </>
         ) : (
           <>
-            <p>Bonjour, {userInfo.displayName} </p>
+            <p>
+              {greeting}, {userInfo.displayName}
+            </p>
+            <ul className="flex gap-4">
+              <li>Mon abonnement</li>
+              <li>Se Déconnecter</li>
+            </ul>
           </>
         )}
       </ul>

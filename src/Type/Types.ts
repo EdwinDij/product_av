@@ -11,5 +11,11 @@ export type Reservation = {
     quantity: number,
     price: number,
     clientName: string,
-    clientPhone: string
+    clientPhone: string,
+    valueMeter: string,
+    shopId: string | undefined,
+}
+
+export type CustomerList = {
+    customerList: Reservation[],
 }

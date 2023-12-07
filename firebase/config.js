@@ -13,5 +13,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const userDB = collection(db, "usersShop");
+const reservationCollection = collection(db, "customerReservation");
 
-export { firebaseConfig, db, app, userDB };
+export { firebaseConfig, db, app, userDB, reservationCollection };
