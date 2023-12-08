@@ -1,8 +1,9 @@
+import { set } from 'firebase/database';
 "use client"
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider";
 import { Reservation } from "../../Type/Types";
-import { doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { db, reservationCollection } from "../../../firebase/config";
 
 export const useDashboard = () => {
@@ -13,9 +14,9 @@ export const useDashboard = () => {
   const [clientPhone, setClientPhone] = useState<string>("");
   const [valueMeter, setValueMeter] = useState<string>("");
   const [customer, setCustomer] = useState<Reservation[]>([]);
+  const [idCustomer, setIdCustomer] = useState<string>("");
 
   const auth = useAuth();
-  console.log("auth:", auth.user);
 
   const checkInput = () => {
     if (
@@ -70,6 +71,13 @@ export const useDashboard = () => {
     setCustomer(reservationList);
   }
 
+  // const getCustomerId = async(id:string) => {
+  //   const customerQuery = query(reservationCollection, where("id", "==", id))
+  //   const customerSnapshot = await getDocs(customerQuery);
+  //   console.log(customerSnapshot.docs[0].data().id);
+  //   setIdCustomer(customerSnapshot.docs[0].data().id);
+  // }
+
   const cleanInput = () => {
     setProductName("");
     setQuantity(0);
@@ -123,7 +131,14 @@ export const useDashboard = () => {
 
   useEffect(() => {
     getCustomer(auth.user?.uid);
-  },[auth.user?.uid])
+  })
+
+
+  const handleDeleteCustomer = async (id: string) => {
+    await deleteDoc(doc(db, "customerReservation", id))
+    getCustomer(auth.user?.uid);
+    console.log("produit supprimé");
+  }
 
   return {
     productName,
@@ -140,6 +155,9 @@ export const useDashboard = () => {
     valueMeter,
     setValueMeter,
     customer,
+    // getCustomerId,
+    idCustomer,
+    handleDeleteCustomer
   }
 
 }

@@ -1,17 +1,26 @@
 // DashboardComponent.jsx
 import React from "react";
 import { Reservation } from "../../Type/index";
+import { useDashboard } from "@/app/dashboard/useDashboard";
 
 type DashboardProps = {
   customerList: Reservation[];
 };
+
 export const Dashboard = ({ customerList }: DashboardProps) => {
+
+  const { 
+    // getCustomerId,
+    idCustomer,
+    handleDeleteCustomer
+  } = useDashboard();
+
   return (
     <div className="container mx-auto">
       <h2 className="text-2xl font-bold my-4">Tableau de bord</h2>
       <div className="overflow-x-auto">
         {customerList.length > 0 && (
-          <table className="min-w-full border-separate border-spacing-y-4">
+          <table className="border-separate border-spacing-y-4 ">
             <thead className="text-left">
               <tr>
                 <th className="px-10 py-4">Status</th>
@@ -22,13 +31,13 @@ export const Dashboard = ({ customerList }: DashboardProps) => {
                 <th className="px-10 py-4">Prix</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="px-4">
               {customerList.map((customer: Reservation) => (
                 <tr
                   key={customer.id}
-                  className="bg-neutral-100/40 text-left rounded-lg shadow-md border border-red-500"
+                  className=" text-left bg-gray-100 borderRadius shadow-md"
                 >
-                  <td className="px-10 py-4">en cours</td>
+                  <td className="px-10 py-4 ">en cours</td>
                   <td className="px-10 py-4">on verra</td>
                   <td className="px-10 py-4">{customer.clientName}</td>
                   <td className="px-10 py-4">{customer.product}</td>
@@ -41,7 +50,7 @@ export const Dashboard = ({ customerList }: DashboardProps) => {
                   </td>
                   <td className="px-10 py-4">
                     <div className="flex justify-center items-center gap-2">
-                      <button className="p-2 rounded-xl bg-red-500 hover:scale-110 transition ease-out delay-300">
+                      <button className="p-2 rounded-xl bg-red-500 hover:scale-110 transition ease-out delay-300" type="button" onClick={() => handleDeleteCustomer(customer.id)}>
                         Supprimer
                       </button>
                       <button className="p-2 rounded-xl bg-indigo-500 hover:scale-110 transition ease-out delay-300">
