@@ -15,5 +15,6 @@ export type Reservation = {
     valueMeter: string,
     shopId: string | undefined,
     status: string,
+    date: string,
 }
 

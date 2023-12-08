@@ -2,6 +2,8 @@
 import React from "react";
 import { Reservation } from "../../Type/index";
 import { useDashboard } from "@/app/dashboard/useDashboard";
+import { MdDeleteForever } from "react-icons/md";
+
 
 type DashboardProps = {
   customerList: Reservation[];
@@ -38,7 +40,7 @@ export const Dashboard = ({ customerList }: DashboardProps) => {
                   className=" text-left bg-gray-100 borderRadius shadow-md"
                 >
                   <td className="px-10 py-4 ">{customer.status}</td>
-                  <td className="px-10 py-4">on verra</td>
+                  <td className="px-10 py-4">{customer.date}</td>
                   <td className="px-10 py-4">{customer.clientName}</td>
                   <td className="px-10 py-4">{customer.product}</td>
                   {/* <td className="px-10 py-4">{customer.productCategory}</td> */}
@@ -46,19 +48,14 @@ export const Dashboard = ({ customerList }: DashboardProps) => {
                     {customer.quantity} {customer.valueMeter}
                   </td>
                   <td className="px-10 py-4">
-                    {customer.price}€ / {customer.valueMeter}
+                    {customer.price}€ /{customer.valueMeter}
                   </td>
                   <td className="px-10 py-4">
                     <div className="flex justify-center items-center gap-2">
-                      <button
-                        className="p-2 rounded-xl bg-red-500 hover:scale-110 transition ease-out delay-300"
-                        type="button"
-                        onClick={() => handleDeleteCustomer(customer.id)}
-                      >
-                        Supprimer
-                      </button>
+                        <MdDeleteForever onClick={() => handleDeleteCustomer(customer.id)} size={35} className="text-red-500 hover:cursor-pointer hover:scale-105 transition ease-out delay-300"/>
+
                       <select
-                        className="p-2 rounded-xl bg-indigo-500 hover:scale-110 transition ease-out delay-300"
+                        className="p-2 rounded-xl  hover:scale-105 transition ease-out delay-300"
                         onChange={(e) =>
                           updateCustomer(
                             customer.id,
@@ -72,6 +69,7 @@ export const Dashboard = ({ customerList }: DashboardProps) => {
                         <option value="Contacté">Client contacté</option>
                         <option value="Annulé">Annulé</option>
                         <option value="Terminé">Terminé</option>
+                        <option value="En attente">En attente</option>
                       </select>
                     </div>
                   </td>

@@ -86,6 +86,14 @@ export const useDashboard = () => {
     setClientPhone("");
     setValueMeter("");
   }
+  const getDate = () => {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const dateNow = day + "/" + month + "/" + year;
+    return dateNow;
+  }
 
   const handleSubmitCustomer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -117,6 +125,7 @@ export const useDashboard = () => {
         valueMeter: valueMeter,
         shopId: auth.user?.uid,
         status: "En attente",
+        date: getDate()
       };
 
       const res = await setDoc(doc(db, "customerReservation", id), data);
