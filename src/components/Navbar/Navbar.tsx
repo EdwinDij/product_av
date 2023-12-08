@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavbar } from "./useNavbar";
 
-export default function Navbar() {
+export const Navbar = () => {
   const { greeting, userInfo } = useNavbar();
 
   return (

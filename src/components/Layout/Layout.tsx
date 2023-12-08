@@ -1,12 +1,11 @@
 import React, { PropsWithChildren } from "react";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+import { Footer, Navbar } from "../index";
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <header>
-        <Navbar />
+      <Navbar />
       </header>
       <main>{children}</main>
       <Footer />

@@ -4,7 +4,6 @@ import { useAuth } from "../AuthProvider";
 import { Reservation } from "../../Type/Types";
 import { doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { db, reservationCollection } from "../../../firebase/config";
-import { set } from "firebase/database";
 
 export const useDashboard = () => {
   const [productName, setProductName] = useState<string>("");
@@ -71,7 +70,14 @@ export const useDashboard = () => {
     setCustomer(reservationList);
   }
 
-
+  const cleanInput = () => {
+    setProductName("");
+    setQuantity(0);
+    setPrice(0);
+    setClientName("");
+    setClientPhone("");
+    setValueMeter("");
+  }
 
   const handleSubmitCustomer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,11 +108,13 @@ export const useDashboard = () => {
         clientPhone: clientPhone,
         valueMeter: valueMeter,
         shopId: auth.user?.uid,
+        status: "En attente",
       };
 
       const res = await setDoc(doc(db, "customerReservation", id), data);
       console.log("produit crée");
       getCustomer(auth.user?.uid);
+      cleanInput();
 
     } catch (error) {
       console.log(error);

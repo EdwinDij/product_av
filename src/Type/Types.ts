@@ -14,8 +14,6 @@ export type Reservation = {
     clientPhone: string,
     valueMeter: string,
     shopId: string | undefined,
+    status: string,
 }
 
-export type CustomerList = {
-    customerList: Reservation[],
-}

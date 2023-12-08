@@ -1,1 +1,1 @@
-export type { User, Reservation, CustomerList } from './Types'
+export type { User, Reservation } from './Types'
