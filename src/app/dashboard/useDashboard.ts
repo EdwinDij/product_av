@@ -140,6 +140,12 @@ export const useDashboard = () => {
     console.log("produit supprimé");
   }
 
+  const updateCustomer = async (id: string, status:string ) => {
+    await setDoc(doc(db, "customerReservation", id), {status: status}, {merge: true})
+    getCustomer(auth.user?.uid);
+    console.log("produit mis à jour")
+  }
+
   return {
     productName,
     setProductName,
@@ -157,7 +163,8 @@ export const useDashboard = () => {
     customer,
     // getCustomerId,
     idCustomer,
-    handleDeleteCustomer
+    handleDeleteCustomer,
+    updateCustomer
   }
 
 }

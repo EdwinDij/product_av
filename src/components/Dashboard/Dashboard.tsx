@@ -8,11 +8,11 @@ type DashboardProps = {
 };
 
 export const Dashboard = ({ customerList }: DashboardProps) => {
-
-  const { 
+  const {
     // getCustomerId,
     idCustomer,
-    handleDeleteCustomer
+    handleDeleteCustomer,
+    updateCustomer,
   } = useDashboard();
 
   return (
@@ -37,7 +37,7 @@ export const Dashboard = ({ customerList }: DashboardProps) => {
                   key={customer.id}
                   className=" text-left bg-gray-100 borderRadius shadow-md"
                 >
-                  <td className="px-10 py-4 ">en cours</td>
+                  <td className="px-10 py-4 ">{customer.status}</td>
                   <td className="px-10 py-4">on verra</td>
                   <td className="px-10 py-4">{customer.clientName}</td>
                   <td className="px-10 py-4">{customer.product}</td>
@@ -50,12 +50,29 @@ export const Dashboard = ({ customerList }: DashboardProps) => {
                   </td>
                   <td className="px-10 py-4">
                     <div className="flex justify-center items-center gap-2">
-                      <button className="p-2 rounded-xl bg-red-500 hover:scale-110 transition ease-out delay-300" type="button" onClick={() => handleDeleteCustomer(customer.id)}>
+                      <button
+                        className="p-2 rounded-xl bg-red-500 hover:scale-110 transition ease-out delay-300"
+                        type="button"
+                        onClick={() => handleDeleteCustomer(customer.id)}
+                      >
                         Supprimer
                       </button>
-                      <button className="p-2 rounded-xl bg-indigo-500 hover:scale-110 transition ease-out delay-300">
-                        Modifier
-                      </button>
+                      <select
+                        className="p-2 rounded-xl bg-indigo-500 hover:scale-110 transition ease-out delay-300"
+                        onChange={(e) =>
+                          updateCustomer(
+                            customer.id,
+                            (e.target as HTMLSelectElement).value
+                          )
+                        }
+                      >
+                        <option value="En attente">
+                          -- Choissez un statut --
+                        </option>
+                        <option value="Contacté">Client contacté</option>
+                        <option value="Annulé">Annulé</option>
+                        <option value="Terminé">Terminé</option>
+                      </select>
                     </div>
                   </td>
                 </tr>
