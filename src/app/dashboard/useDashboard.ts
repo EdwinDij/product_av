@@ -140,7 +140,7 @@ export const useDashboard = () => {
 
   useEffect(() => {
     getCustomer(auth.user?.uid);
-  })
+  }, [auth.user?.uid])
 
 
   const handleDeleteCustomer = async (id: string) => {
@@ -155,6 +155,15 @@ export const useDashboard = () => {
     console.log("produit mis à jour")
   }
 
+  const isLoading = () => {
+    if (auth === null) {
+      console.log("loading");
+      return true;
+    }
+    return false;
+  }
+
+  const loading = isLoading();
   return {
     productName,
     setProductName,
@@ -173,7 +182,8 @@ export const useDashboard = () => {
     // getCustomerId,
     idCustomer,
     handleDeleteCustomer,
-    updateCustomer
+    updateCustomer,
+    loading
   }
 
 }
