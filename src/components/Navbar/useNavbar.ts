@@ -8,6 +8,7 @@ export const useNavbar = () => {
   const [greeting, setGreeting] = useState("Bonjour");
   const userInfo = auth.user;
   console.log("auth:", userInfo);
+  console.log("auth:", auth);
 
   useEffect(() => {
     const getCurrentGreeting = () => {
@@ -26,8 +27,17 @@ export const useNavbar = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const logout = () => {
+    auth.signOut();
+    console.log("déconnexion")
+  }
+
+
   return {
     greeting,
+    logout,
     userInfo,
+    
   }
 }

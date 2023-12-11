@@ -4,7 +4,8 @@ import { useNavbar } from "./useNavbar";
 import Link from "next/link";
 
 export const Navbar = () => {
-  const { greeting, userInfo } = useNavbar();
+  const { greeting, userInfo, logout } = useNavbar();
+
 
   return (
     <nav className="border-b-2 py-4 px-14 shadow-md mb-10">
@@ -28,7 +29,7 @@ export const Navbar = () => {
           </p>
           <ul className="flex gap-4">
             <li>Mon abonnement</li>
-            <li>Se Déconnecter</li>
+            <li onClick={logout}>Se Déconnecter</li>
           </ul>
         </>
       )}
