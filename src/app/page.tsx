@@ -3,6 +3,8 @@ import HeroImg from "../../public/assets/undraw_messages_re_qy9x.svg";
 import { FaCheck } from "react-icons/fa6";
 
 export default function Home() {
+
+  //TODO: AJOUTER LA LOGIQUE STRIPE POUR LES PAIEMENTS ET LA FAQ
   return (
     <main>
       <section className="flex min-h-screen max-lg:flex-col justify-center items-center p-24 max-lg:p-6">
