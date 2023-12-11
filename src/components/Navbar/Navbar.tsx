@@ -25,10 +25,17 @@ export const Navbar = () => {
         <>
           <ul className="flex gap-4 justify-between text-lg">
             <li>
-              {greeting}, {userInfo.username}
+              <Link href="/dashboard" hover:text-indigo-500>
+                {greeting}, {userInfo.username}
+              </Link>
             </li>
-            <li  className="hover:cursor-pointer hover:text-indigo-500">Mon abonnement</li>
-            <li onClick={logout} className="hover:cursor-pointer hover:text-indigo-500">
+            <li className="hover:cursor-pointer hover:text-indigo-500">
+              <Link href="/subscription">Mon abonnement</Link>
+            </li>
+            <li
+              onClick={logout}
+              className="hover:cursor-pointer hover:text-indigo-500"
+            >
               Se déconnecter
             </li>
           </ul>
