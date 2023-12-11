@@ -6,7 +6,6 @@ import Link from "next/link";
 export const Navbar = () => {
   const { greeting, userInfo, logout } = useNavbar();
 
-
   return (
     <nav className="border-b-2 py-4 px-14 shadow-md mb-10">
       {userInfo === null ? (
@@ -24,12 +23,14 @@ export const Navbar = () => {
         </>
       ) : (
         <>
-          <p>
-            {greeting}, {userInfo.displayName}
-          </p>
-          <ul className="flex gap-4">
-            <li>Mon abonnement</li>
-            <li onClick={logout}>Se Déconnecter</li>
+          <ul className="flex gap-4 justify-between text-lg">
+            <li>
+              {greeting}, {userInfo.username}
+            </li>
+            <li  className="hover:cursor-pointer hover:text-indigo-500">Mon abonnement</li>
+            <li onClick={logout} className="hover:cursor-pointer hover:text-indigo-500">
+              Se déconnecter
+            </li>
           </ul>
         </>
       )}

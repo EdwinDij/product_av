@@ -3,6 +3,7 @@ export type User = {
     id: string,
     email: string,
     username: string,
+    prenium: boolean,
 }
 
 export type Reservation = {

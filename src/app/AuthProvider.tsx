@@ -16,12 +16,13 @@ import { firebaseConfig, userDB } from "../../firebase/config";
 import { initializeApp } from "firebase/app";
 import { getDoc, query, where, collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
-// import { User } from "../type";
+import { User } from "../Type/index";
 import { UserInfo } from "firebase/auth";
 
 export default function useFirebaseAuth() {
-  const [user, setUser] = useState<UserInfo | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isPrenium, setIsPrenium] = useState(false);
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -29,19 +30,19 @@ export default function useFirebaseAuth() {
   const clear = () => {
     setUser(null);
     setLoading(true);
+    setIsPrenium(false);
   };
+
   const getUsersById = async (id: string) => {
     const queryId = query(collection(db, "userShop"), where("id", "==", id));
     const querySnapshot = await getDocs(queryId);
     querySnapshot.forEach((doc) => {
       // console.log(doc.id, " => ", doc.data());
       setUser({
-        uid: doc.data().id,
+        id: doc.data().id,
         email: doc.data().email,
-        displayName: doc.data().username,
-        photoURL: "",
-        providerId: "",
-        phoneNumber: "",
+        username: doc.data().username,
+        prenium: doc.data().prenium,
       });
     });
   };
@@ -74,20 +75,24 @@ export default function useFirebaseAuth() {
 }
 
 const AuthUserContext = createContext<{
-  user: UserInfo | null;
+  user: User | null;
   loading: boolean;
   signOut: () => void;
+  prenium: boolean;
 }>({
   user: null,
   loading: true,
   signOut: () => {},
+  prenium: false,
 });
 
 export function AuthUserProvider({ children }: PropsWithChildren) {
   const auth = useFirebaseAuth();
 
   return (
-    <AuthUserContext.Provider value={auth}>{children}</AuthUserContext.Provider>
+    <AuthUserContext.Provider value={{ ...auth, prenium: false }}>
+      {children}
+    </AuthUserContext.Provider>
   );
 }
 

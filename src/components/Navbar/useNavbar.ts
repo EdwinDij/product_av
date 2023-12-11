@@ -1,12 +1,14 @@
 "use client";
-
 import { useAuth } from "../../app/AuthProvider";
 import React, { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export const useNavbar = () => {
   const auth = useAuth();
   const [greeting, setGreeting] = useState("Bonjour");
   const userInfo = auth.user;
+  const router = useRouter();
+
   console.log("auth:", userInfo);
   console.log("auth:", auth);
 
@@ -31,6 +33,7 @@ export const useNavbar = () => {
   const logout = () => {
     auth.signOut();
     console.log("déconnexion")
+    router.push("/")
   }
 
 
@@ -38,6 +41,6 @@ export const useNavbar = () => {
     greeting,
     logout,
     userInfo,
-    
+
   }
 }

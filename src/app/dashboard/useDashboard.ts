@@ -123,14 +123,14 @@ export const useDashboard = () => {
         clientName: clientName,
         clientPhone: clientPhone,
         valueMeter: valueMeter,
-        shopId: auth.user?.uid,
+        shopId: auth.user?.id,
         status: "En attente",
         date: getDate()
       };
 
       const res = await setDoc(doc(db, "customerReservation", id), data);
       console.log("produit crée");
-      getCustomer(auth.user?.uid);
+      getCustomer(auth.user?.id);
       cleanInput();
 
     } catch (error) {
@@ -139,19 +139,19 @@ export const useDashboard = () => {
   };
 
   useEffect(() => {
-    getCustomer(auth.user?.uid);
-  }, [auth.user?.uid])
+    getCustomer(auth.user?.id);
+  }, [auth.user?.id])
 
 
   const handleDeleteCustomer = async (id: string) => {
     await deleteDoc(doc(db, "customerReservation", id))
-    getCustomer(auth.user?.uid);
+    getCustomer(auth.user?.id);
     console.log("produit supprimé");
   }
 
   const updateCustomer = async (id: string, status:string ) => {
     await setDoc(doc(db, "customerReservation", id), {status: status}, {merge: true})
-    getCustomer(auth.user?.uid);
+    getCustomer(auth.user?.id);
     console.log("produit mis à jour")
   }
 

@@ -8,7 +8,6 @@ import {
 import { db } from "../../../firebase/config";
 import { setDoc, doc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-
 import { User } from "../../Type/Types";
 
 
@@ -44,6 +43,7 @@ export const useRegisterLogin = () => {
         id: user.uid,
         username: username,
         email: email,
+        prenium: false,
       };
       // console.log("Before setDoc:", data);
       await setDoc(doc(db, "userShop", user.uid), data);
