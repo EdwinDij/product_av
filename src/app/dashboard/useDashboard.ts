@@ -5,6 +5,8 @@ import { useAuth } from "../AuthProvider";
 import { Reservation } from "../../Type/Types";
 import { deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { db, reservationCollection } from "../../../firebase/config";
+import { useRouter } from "next/navigation";
+
 
 export const useDashboard = () => {
   const [productName, setProductName] = useState<string>("");
@@ -17,6 +19,16 @@ export const useDashboard = () => {
   const [idCustomer, setIdCustomer] = useState<string>("");
 
   const auth = useAuth();
+  const user = auth.user;
+  const router = useRouter();
+
+  const userAuthentified = () => {
+    if (user === null) {
+      router.push("/registerLogin");
+      return false;
+    }
+    return true;
+  }
 
   const checkInput = () => {
     if (
@@ -157,13 +169,13 @@ export const useDashboard = () => {
 
   const isLoading = () => {
     if (auth === null) {
-      console.log("loading");
+      router.push("/registerLogin")
       return true;
     }
     return false;
   }
-
   const loading = isLoading();
+
   return {
     productName,
     setProductName,
@@ -183,7 +195,8 @@ export const useDashboard = () => {
     idCustomer,
     handleDeleteCustomer,
     updateCustomer,
-    loading
+    loading,
+    userAuthentified,
   }
 
 }
